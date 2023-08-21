@@ -101,7 +101,7 @@ const addGPAContainer = () => {
   // gpa.insertAdjacentElement('beforeend', copyButton);
 };
 
-const changeStyleTable = () => {
+const changeTableStyle = () => {
   const table = document.getElementsByTagName('table');
   table[0].style.cssText = `
     background-color: #eaeaed;
@@ -127,7 +127,7 @@ const changeStyleTable = () => {
   }
 };
 
-const changeStyleMenu = () => {
+const changeMenuStyle = () => {
   const menuItems: any = document.getElementsByClassName('panel panel-primary');
   for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].style.cssText = `
@@ -145,44 +145,35 @@ const changeStyleMenu = () => {
   }
 };
 
-const copyToClipboard = async (text: string) => {
-  if ('clipboard' in navigator) {
-    await navigator.clipboard.writeText(text);
-    alert('Copied to clipboard!');
-  } else {
-    document.execCommand('copy', true, text);
-    alert('Copied to clipboard!');
-  }
+const changeAvatar = () => {
+  const avatar: any = document.getElementsByClassName('img-cont')[0];
+  const staff: any = document.getElementsByClassName('staff-item')[0];
+  const name = staff.children[2].textContent;
+  avatar.children[0].src = `https://ui-avatars.com/api/?background=373740&color=eaeaed&name=${name}`;
+  staff.style.cssText = `
+    background-color: #eaeaed;
+    border-radius: 8px;
+    border: none;`;
 };
 
-const getCoursesWithGrades = (): { courses: string[]; grades: string[] } => {
-  const rows: HTMLCollectionOf<HTMLTableSectionElement> = document.getElementsByTagName('tbody');
-  const courses: string[] = [];
-  const grades: string[] = [];
-  for (let i = 0; i < rows[0].children.length; i++) {
-    const grade: any = rows[0].children[i].children[1].textContent;
-    const course: any = rows[0].children[i].children[0].textContent;
-    courses.push(course);
-    grades.push(grade);
-  }
-  return { courses, grades };
-};
-
-const generateSummary = (courses: { courses: string[]; grades: string[] }): string => {
-  let summary: string = ``;
-  const title: HTMLHeadElement = document.getElementsByTagName('h2')[0];
-  const gpa: string = getGPAInfo(getGrades(), 'gpa');
-  const estimate: string = getGPAInfo(getGrades(), 'estimate');
-  summary += `${title.textContent}\n`;
-  for (let i = 0; i < courses.courses.length; i++) summary += `${courses.courses[i]} ⇒ ${courses.grades[i]}\n`;
-  summary += `GPA ⇒ ${gpa}\n`;
-  summary += `Estimate ⇒ ${estimate}\n`;
-  summary += `Calculated with ❤️ by anaszarqawi_`;
-  return summary;
+const changeHeaderStyle = () => {
+  const h2 = document.getElementsByTagName('h2');
+  h2[0].style.cssText = `
+    margin-top: 10px;
+  `;
 };
 
 if (document.getElementsByTagName('tbody').length !== 0) {
   addGPAContainer();
-  changeStyleTable();
-  changeStyleMenu();
+  changeTableStyle();
 }
+
+if (document.getElementsByClassName('panel panel-primary').length !== 0) {
+  changeMenuStyle();
+}
+
+if (document.getElementsByClassName('staff-item').length !== 0) {
+  changeAvatar();
+}
+
+changeHeaderStyle();
