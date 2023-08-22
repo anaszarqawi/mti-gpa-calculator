@@ -129,6 +129,7 @@ const changeTableStyle = () => {
 
 const changeMenuStyle = () => {
   const menuItems: any = document.getElementsByClassName('panel panel-primary');
+  const listBody: any = document.getElementsByClassName('list-group');
   for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].style.cssText = `
     border-color: #eaeaed;
@@ -142,6 +143,12 @@ const changeMenuStyle = () => {
     menu[0].style.cssText = `
     margin-top: 16px;
     `;
+    menuItems[i].children[1].children[0].style.cssText = `
+      border-top: none;
+      `;
+    listBody[i].style.cssText = `
+      margin-bottom: 0;
+      `;
   }
 };
 

@@ -14,29 +14,28 @@ export const getGradePoint = (gradeName: string): number => {
   else return 0;
 };
 
-export const getGradeLetter = (gradePoint: number): string => {
-  if (gradePoint < 1.6) return 'F';
-  else if (gradePoint < 2.0) return 'D';
-  else if (gradePoint < 2.2) return 'D+';
-  else if (gradePoint < 2.4) return 'C-';
-  else if (gradePoint < 2.6) return 'C';
-  else if (gradePoint < 2.8) return 'C+';
-  else if (gradePoint < 3.0) return 'B-';
-  else if (gradePoint < 3.2) return 'B';
-  else if (gradePoint < 3.4) return 'B+';
-  else if (gradePoint < 3.6) return 'A-';
-  else if (gradePoint < 3.8) return 'A';
-  else if (gradePoint <= 4.0) return 'A+';
-  else return 'Grade Not Found';
+export const getGradeLetter = (percentage: number): string => {
+  if (percentage >= 95) return 'A+';
+  else if (percentage >= 90) return 'A';
+  else if (percentage >= 85) return 'A-';
+  else if (percentage >= 82) return 'B+';
+  else if (percentage >= 79) return 'B';
+  else if (percentage >= 75) return 'B-';
+  else if (percentage >= 72) return 'C+';
+  else if (percentage >= 69) return 'C';
+  else if (percentage >= 65) return 'C-';
+  else if (percentage >= 60) return 'D+';
+  else if (percentage >= 50) return 'D';
+  else return 'F';
 };
 
-export const getEstimateGrade = (gpa: number) => {
-  if (gpa < 1.6) return 'Very Weak';
-  else if (gpa < 2.0) return 'Weak';
-  else if (gpa < 2.4) return 'Sufficient';
-  else if (gpa < 3.0) return 'Good';
-  else if (gpa < 3.6) return 'Very Good';
-  else if (gpa <= 4.0) return 'Excellent';
+export const getEstimateGrade = (gpa: number): string => {
+  if (gpa >= 3.6) return 'Excellent';
+  else if (gpa >= 3) return 'Very Good';
+  else if (gpa >= 2.4) return 'Good';
+  else if (gpa >= 2) return 'Sufficient';
+  else if (gpa >= 1.6) return 'Weak';
+  else return 'Very Weak';
 };
 
 export const getGPA = (grades: string[]): number => {
@@ -64,9 +63,11 @@ export const getGPAInfo = (grades: string[], target: string): string => {
   if (grades[0] === 'PASS') return 'PASS';
   if (grades.length === 0) return 'No Grades Yet';
   const gpa = getGPA(grades);
-  const gradeLetter = getGradeLetter(gpa);
-  const estimateGrade = getEstimateGrade(gpa);
-  const gpaPercentage = getGpaPercentage(gpa);
+  const gpaPercentage = getGpaPercentage(+gpa.toFixed(2));
+  const gradeLetter = getGradeLetter(gpaPercentage);
+  const estimateGrade = getEstimateGrade(+gpa.toFixed(2));
+
+  console.log(gpa, gpaPercentage, gradeLetter, estimateGrade);
 
   if (target === 'gpa') return gpa.toFixed(2);
   else if (target === 'estimate') return `${gpaPercentage.toFixed(2)}% | ${gradeLetter} | ${estimateGrade}`;

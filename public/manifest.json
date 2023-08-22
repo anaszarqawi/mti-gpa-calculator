@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "mti-gpa-calculator",
+  "name": "MTI GPA Calculator",
+  "description": "All you have to do is show me your grades ;)",
+  "author": "info@anaszarqawi.com",
   "version": "1.0",
-  "description": "",
   "icons": {
     "16": "logo16.png",
     "32": "logo32.png",
