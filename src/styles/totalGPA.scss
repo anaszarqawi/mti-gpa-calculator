@@ -1,0 +1,19 @@
+.total-gpa {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+    padding: 12px 0;
+    border-top: 1px solid hsl(210, 13%, 30%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px -3px 8px;
+
+    border-radius: 0;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+    background-color: transparent;
+
+    &:hover {
+        background-color: transparent;
+    }
+}

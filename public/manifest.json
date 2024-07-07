@@ -1,19 +1,23 @@
 {
   "manifest_version": 3,
   "name": "MTI GPA Calculator",
-  "description": "All you have to do is show me your grades ;)",
+  "description": "Just show me your grades, I'll handle the rest 👀",
   "author": "info@anaszarqawi.com",
-  "version": "1.0",
+  "version": "3.0",
   "icons": {
     "16": "logo16.png",
     "32": "logo32.png",
     "48": "logo48.png",
     "128": "logo128.png"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "storage"],
+  "action": {
+    "default_popup": "js/index.html",
+    "default_title": "MTI GPA Calculator"
+  },
   "content_scripts": [
     {
-      "js": ["js/content_script.js"],
+      "js": ["js/content.js"],
       "matches": ["http://www.mti.edu.eg/university/student/*"]
     }
   ]

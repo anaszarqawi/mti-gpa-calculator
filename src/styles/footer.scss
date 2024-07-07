@@ -1,0 +1,24 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    .copyright {
+        font-size: 12px;
+        color: var(--color-tertiary-dark);
+    }
+
+    .version {
+        font-size: 12px;
+        color: var(--color-tertiary-dark);
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--color-tertiary);
+        }
+    }
+}

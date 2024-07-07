@@ -1,16 +1,29 @@
-import { getGPAInfo } from './calculator_methods';
+import { getGPAInfo } from './utils/calculator_methods';
+import { getInsights } from './utils/insights_methods';
 
 const getGrades = (): string[] => {
   const grades: HTMLCollectionOf<HTMLTableSectionElement> = document.getElementsByTagName('tbody');
-  const gradesList: string[] = [];
+  const gradesList: { name: string; grade: string }[] | any = [];
   let allPASS: boolean = true;
   for (let i = 0; i < grades[0].children.length; i++) {
+    let name: any = grades[0].children[i].children[0].textContent?.trim();
+    let code: any = name.slice(name.indexOf('('), name.indexOf(')') + 1);
     const grade: any = grades[0].children[i].children[1].textContent;
+
+    if (name !== null) {
+      name = name.replace('  ', ' ').slice(0, name.indexOf('\n')).trim();
+    }
+
     if (grade !== 'PASS') {
       allPASS = false;
-      gradesList.push(grade);
+      gradesList.push({
+        name,
+        grade,
+        code,
+      });
     }
   }
+  // console.log(gradesList);
   return allPASS ? ['PASS'] : gradesList;
 };
 
@@ -170,17 +183,180 @@ const changeHeaderStyle = () => {
   `;
 };
 
+const changeArrowStyle = () => {
+  const arrowContainer: any = document.getElementsByClassName('badge label-primary pull-right');
+  const arrows: any = document.getElementsByClassName('fa fa-chevron-right');
+
+  for (let i = 0; i < arrowContainer.length; i++) {
+    arrowContainer[i].style.cssText = `
+      background-color: #373740;
+      padding: 0;
+      width: 15px;
+      height: 15px;
+      display: none;
+    `;
+  }
+  for (let i = 0; i < arrows.length; i++) {
+    arrows[i].style.cssText = `
+      font-size: 7px;
+    `;
+  }
+};
+
+const pushToSemesters = () => {
+  // clear semesters
+  // chrome.storage.sync.set({
+  //   semesters: [],
+  // });
+
+  chrome.storage.sync.get(['semesters'], function (result) {
+    const semesters = result.semesters || [];
+
+    let name = document.getElementsByTagName('h2')[1].textContent;
+
+    if (name !== null) {
+      name = name.trim().slice(14);
+    }
+
+    chrome.storage.sync.set({
+      currentSemester: name,
+    });
+
+    // if currentSemester is already in the array, skip
+    if (semesters.length !== 0) {
+      for (const semester of semesters) {
+        if (semester.name === name) {
+          const insights = getInsights(semesters);
+          // console.log(insights);
+          chrome.storage.sync.set({
+            insights: insights,
+          });
+          return false;
+        }
+      }
+    }
+
+    const gpa = document.getElementsByClassName('gpa-value')[0].textContent;
+    const estimate = document.getElementsByClassName('estimate')[0].textContent;
+    const credits = getGPAInfo(getGrades(), 'credits');
+    const gradePoints = getGPAInfo(getGrades(), 'gradePoints');
+    const courses = getGrades();
+
+    // console.log({
+    //   name: name,
+    //   gpa: gpa,
+    //   estimate: estimate,
+    //   credits: credits,
+    //   gradePoints: gradePoints,
+    //   courses: courses,
+    // });
+
+    if (name !== null && name !== undefined) {
+      semesters.push({ name, gpa, estimate, credits, gradePoints, courses });
+    }
+    // console.log(semesters);
+    const insights = getInsights(semesters);
+
+    chrome.storage.sync.set({
+      semesters: semesters,
+      insights: insights,
+    });
+
+    return false;
+  });
+};
+
+const checkOnSemesterList = () => {
+  const semesters: any = document.getElementsByClassName('list-group-item  ');
+  chrome.storage.sync.get(['semesters', 'currentSemester'], function (result) {
+    const semestersList = result.semesters || [];
+    for (const semester of semestersList) {
+      for (let i = 0; i < semesters.length; i++) {
+        // console.log({
+        //   semester: semester.name,
+        //   semesters: semesters[i].textContent.trim(),
+        // });
+        if (semesters[i].textContent.trim() === semester.name) {
+          semesters[i].style.cssText = `
+            background-color: #eaf4fa;
+          `;
+        }
+        if (semesters[i].textContent.trim() === result.currentSemester) {
+          semesters[i].style.cssText = `
+            background-color: #eaeaed;
+          `;
+        }
+      }
+    }
+  });
+};
+
+// const reorderSemesters = (semesters: any) => {
+
+//   // semesters = [{name: 'Fall 2019', ...}, {name: 'Spring 2020', ...}, {name: 'Fall 2020', ...}, {name: 'Spring 2021', ...}]
+
+//   const years: {
+//     year: string;
+//     semesters: any;
+//   }[] = []; // {year: '2019-2020', semesters: [{name: 'Fall 2019', ...}, {name: 'Spring 2020', ...}]}
+
+
+// }
+
+// const collectGrades = () => {
+//   // open the Results panel
+//   const allPanels: any = document.getElementsByClassName('panel panel-primary');
+//   let resultPanel: HTMLDivElement | any = null;
+//   for (const panel of allPanels) {
+//     const panelTitle: any = panel.getElementsByClassName('panel-title')[0].textContent;
+//     if (panelTitle.includes('Results')) resultPanel = panel;
+//   }
+//   resultPanel.getElementsByClassName('panel-title')[0].getElementsByTagName('a')[0].click();
+
+//   // get all semesters
+//   const AllResults: any = resultPanel.getElementsByClassName('list-group-item  ');
+//   console.log({ AllResults });
+//   chrome.storage.sync.get(['semesters'], function (result) {
+//     for (const result of AllResults) {
+//       const ResultName = result.textContent.trim();
+//       let isCollected = false;
+//       if (result.semesters === undefined) result.click();
+
+//       for (const semester of result.semesters) {
+//         const semesterName = semester.name;
+//         // if the result in the list of semesters, continue, else click on it
+//         if (ResultName === semesterName) {
+//           isCollected = true;
+//           break;
+//         }
+//       }
+//       if (!isCollected) result.click();
+
+//     }
+//   });
+// };
+
+
 if (document.getElementsByTagName('tbody').length !== 0) {
+  pushToSemesters();
   addGPAContainer();
   changeTableStyle();
 }
 
 if (document.getElementsByClassName('panel panel-primary').length !== 0) {
   changeMenuStyle();
+  setTimeout(() => {
+    checkOnSemesterList();
+    // collectGrades();
+  }, 1000);
 }
 
 if (document.getElementsByClassName('staff-item').length !== 0) {
   changeAvatar();
+}
+
+if (document.getElementsByClassName('badge label-primary pull-right').length !== 0) {
+  changeArrowStyle();
 }
 
 changeHeaderStyle();
