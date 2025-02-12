@@ -12,6 +12,7 @@ export interface Semester {
 
 export interface Course {
   name: string;
+  credit: string;
   grade: Grade;
   code: string;
 }

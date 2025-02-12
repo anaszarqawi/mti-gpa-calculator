@@ -8,33 +8,72 @@
 }
 
 .material-symbols-rounded {
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings: 'FILL'1, 'wght'400, 'GRAD'0, 'opsz'24;
 }
 
 :root {
-  --color-primary: hsl(210, 13%, 12%);
+  --color-primary: #1b1f23;
   --color-secondary: hsl(210, 13%, 18%);
   --color-secondary-light: hsl(210, 13%, 25%);
   --color-secondary-dark: hsl(210, 13%, 10%);
   --color-tertiary: hsl(210, 13%, 82%);
   --color-tertiary-light: hsl(210, 13%, 70%);
   --color-tertiary-dark: hsl(210, 13%, 50%);
-
   /* --color-primary: hsl(240, 25%, 98%);
     --color-secondary: hsl(240, 8%, 92%);
     --color-tertiary: hsl(240, 8%, 23%);
     --color-tertiary-light: hsl(240, 8%, 50%);
     --color-tertiary-dark: hsl(240, 8%, 70%); */
+  --font-family: "Inter", sans-serif;
+  font-size: 16px;
+  --font-size-0: 1rem;
+  --font-size-1: 1.2rem;
+  --font-size-2: 1.4rem;
+  --font-size-3: 1.6rem;
+  --font-size-4: 1.8rem;
+  --font-size-5: 2rem;
+  --font-size-6: 2.2rem;
+  --font-size-7: 2.4rem;
+  --font-size-8: 2.6rem;
+  --font-size-9: 2.8rem;
+  --font-size-10: 3rem;
+  --font-weight-1: 300;
+  --font-weight-2: 400;
+  --font-weight-3: 500;
+  --font-weight-4: 600;
+  --space-25: 0.25rem;
+  --space-50: 0.5rem;
+  --space-75: 0.75rem;
+  --space-1: 1rem;
+  --space-2: 2rem;
+  --space-3: 3rem;
+  --space-4: 4rem;
+  --space-5: 5rem;
+  --space-6: 6rem;
+  --space-7: 7rem;
+  --space-8: 8rem;
+  --space-9: 9rem;
+  --space-10: 10rem;
+  --border-radius: 10px;
+  --transition-1: all 0.1s ease-in;
+  --transition-2: all 0.2s ease-in;
+  --transition-3: all 0.3s ease-in;
 }
+
 
 /* scroll bar */
 
+
 /* width */
+
 ::-webkit-scrollbar {
   display: none;
 }
 
+
 /* Track */
+
+
 /* ::-webkit-scrollbar-track {
     background: hsl(210, 13%, 18%);
 
@@ -78,7 +117,9 @@ body {
   margin-bottom: 6px;
 }
 
+
 /* Tab bar */
+
 
 /* Insights */
 

@@ -15,7 +15,6 @@ const Popup = () => {
       {currentTab === 'Calculator' && <Calculator />}
       {currentTab === 'Insights' && <Insights />}
       <TabBar CurrentTab={currentTab} setCurrentTab={setCurrentTab} />
-      {/* <Footer /> */}
     </div>
   );
 };

@@ -14,16 +14,20 @@ const getGrades = (): string[] => {
       name = name.replace('  ', ' ').slice(0, name.indexOf('\n')).trim();
     }
 
+    let credit: any = code === '(CS492)' && name === "Project" ? 6 : 3;
+
+
     if (grade !== 'PASS') {
       allPASS = false;
       gradesList.push({
         name,
         grade,
+        credit,
         code,
       });
     }
   }
-  // console.log(gradesList);
+  console.log(gradesList);
   return allPASS ? ['PASS'] : gradesList;
 };
 
@@ -290,6 +294,33 @@ const checkOnSemesterList = () => {
     }
   });
 };
+
+// const addCreditInputs = () => {
+//   // add credits input for each course in the table 
+//   const tableHeader = document.getElementsByTagName('table')[0].getElementsByTagName('thead')[0];
+//   const creditHeader = document.createElement('th');
+//   creditHeader.textContent = 'Credits';
+//   tableHeader.insertAdjacentElement('beforeend', creditHeader);
+
+//   const tableBody = document.getElementsByTagName('table')[0].getElementsByTagName('tbody')[0];
+//   for (let i = 0; i < tableBody.children.length; i++) {
+//     const creditInput = document.createElement('input');
+//     creditInput.type = 'number';
+//     creditInput.min = '0';
+//     creditInput.max = '10';
+//     creditInput.value = '3';
+//     creditInput.style.cssText = `
+//       width: 40px;
+//       padding: 4px;
+//       border-radius: 4px;
+//       border: 1px solid #eaeaed;
+//       margin: 0 8px;
+//     `;
+//     tableBody.children[i].insertAdjacentElement('beforeend', creditInput);
+//   }
+// };
+
+
 
 // const reorderSemesters = (semesters: any) => {
 

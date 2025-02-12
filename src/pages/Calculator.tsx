@@ -3,6 +3,7 @@ import { getGeneralEstimate, getTotalGPA } from '../utils/calculator_methods';
 import Semester from '../components/Semester';
 import { Semester as SemesterType } from '../types/types';
 import Placeholder from '../components/Placeholder';
+import Footer from "../components/Footer";
 
 const Calculator = () => {
   const [Semesters, setSemesters] = useState<SemesterType[]>([]);
@@ -34,7 +35,7 @@ const Calculator = () => {
   };
 
   return (
-    <div className="page" style={{ paddingBottom: Semesters.length > 1 ? '86px' : '0px' }}>
+    <div className="page" style={{ paddingBottom: Semesters.length > 1 ? 'calc(72px + var(--space-1))' : '0px' }}>
       {Semesters.length === 0 ? (
         <Placeholder
           icon={
@@ -61,20 +62,23 @@ const Calculator = () => {
           link="http://www.mti.edu.eg/university/student"
         />
       ) : (
-        <div className="semesters">
-          {Semesters.map((semester: any, i) => (
-            <Semester
-              key={i}
-              semester={semester}
-              currentSemester={currentSemester}
-              handelRemoveSemester={handelRemoveSemester}
-            />
-          ))}
-        </div>
+        <>
+          <div className="semesters">
+            {Semesters.map((semester: any, i) => (
+              <Semester
+                key={i}
+                semester={semester}
+                currentSemester={currentSemester}
+                handelRemoveSemester={handelRemoveSemester}
+              />
+            ))}
+          </div>
+          <Footer />
+        </>
       )}
 
       {totalGPA !== '0' && Semesters.length > 1 && (
-        <div className="semester total-gpa">
+        <div className="semester-summary total-gpa">
           <div className="name">Total GPA</div>
           <div className="gpa">{totalGPA}</div>
           <div className="estimate">{getGeneralEstimate(totalGPA)}</div>

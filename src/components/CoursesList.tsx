@@ -8,9 +8,14 @@ const CoursesList = ({ title, courses }: { title?: string, courses: Course[] }) 
         title && <div className="title">{title}</div>
       }
       {courses.map((course, index) => {
+        console.log('course', course);
         return (
           <div key={index} className="course">
-            <div className="name">{course.name}</div>
+            <div className="left-side">
+              <div className="name">{course.name}</div>
+              <div className="separator">•</div>
+              <div className="credit">{course.credit} Credit</div>
+            </div>
             <div className="grade">{course.grade}</div>
           </div>
         );

@@ -5,6 +5,7 @@
     align-items: center;
     border-radius: 8px;
     overflow: hidden;
+    width: 100%;
 
     .course {
         width: 100%;
@@ -21,11 +22,38 @@
             border-bottom: none;
         }
 
-        .name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--color-tertiary-light);
-            text-align: left;
+        .left-side {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+
+            .name {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-tertiary-light);
+                text-align: left;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 200px;
+            }
+
+            .separator {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-tertiary-dark);
+                text-align: left;
+            }
+
+            .credit {
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--color-tertiary-dark);
+                text-align: left;
+                white-space: nowrap;
+            }
         }
 
         .grade {
@@ -34,6 +62,7 @@
             color: var(--color-tertiary-light);
             text-align: left;
             width: 16px;
+            white-space: nowrap;
         }
 
         &:hover {
