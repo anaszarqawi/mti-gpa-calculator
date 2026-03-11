@@ -59,7 +59,7 @@ const Calculator = () => {
           title="Your GPA awaits!"
           body="Show me your grades to calculate your total GPA."
           // buttonName="Go to MTI Site"
-          link="http://www.mti.edu.eg/university/student"
+          link="https://www.mti.edu.eg/university/student"
         />
       ) : (
         <>

@@ -7,7 +7,7 @@ const Placeholder = ({ icon, title, body, buttonName, link }: { icon: any; title
       <div className="title">{title}</div>
       <div className="body">{body}</div>
       {buttonName && (
-        <a className="button" href="http://www.mti.edu.eg/university/student" target="blank">
+        <a className="button" href="https://www.mti.edu.eg/university/student" target="blank">
           {buttonName}
         </a>
       )}

@@ -15,7 +15,7 @@ const Semester = ({
   const [isShowCourses, setIsShowCourses] = React.useState(false);
 
   React.useEffect(() => {
-    console.log('semester', semester);
+    // console.log('semester', semester);
   }, [semester]);
 
   return (

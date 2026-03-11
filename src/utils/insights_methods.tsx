@@ -79,7 +79,7 @@ export const getInsights = (semesters: Semester[]) => {
     worstCourses: worstCourses(semesters),
   };
 
-  console.log(insights);
+  // console.log(insights);
 
   return insights;
 };

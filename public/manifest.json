@@ -3,22 +3,29 @@
   "name": "MTI GPA Calculator",
   "description": "Just show me your grades, I'll handle the rest 👀",
   "author": "info@anaszarqawi.com",
-  "version": "4.0",
+  "version": "4.1",
   "icons": {
     "16": "logo16.png",
     "32": "logo32.png",
     "48": "logo48.png",
     "128": "logo128.png"
   },
-  "permissions": ["scripting", "storage"],
+  "permissions": [
+    "scripting",
+    "storage"
+  ],
   "action": {
     "default_popup": "js/index.html",
     "default_title": "MTI GPA Calculator"
   },
   "content_scripts": [
     {
-      "js": ["js/content.js"],
-      "matches": ["http://www.mti.edu.eg/university/student/*"]
+      "js": [
+        "js/content.js"
+      ],
+      "matches": [
+        "https://www.mti.edu.eg/university/student/*"
+      ]
     }
   ]
 }

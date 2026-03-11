@@ -54,7 +54,7 @@ export const getGPA = (
   for (const course of courses) {
     if (course.grade !== 'F' && courses[0] !== 'PASS') {
       const gradePoint = getGradePoint(course.grade);
-      console.log(course.code, course.name, course.credit);
+      // console.log(course.code, course.name, course.credit);
 
       totalGradePoints += gradePoint * course.credit;
     }

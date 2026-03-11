@@ -27,7 +27,7 @@ const getGrades = (): string[] => {
       });
     }
   }
-  console.log(gradesList);
+  // console.log(gradesList);
   return allPASS ? ['PASS'] : gradesList;
 };
 
