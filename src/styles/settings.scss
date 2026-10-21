@@ -1,0 +1,114 @@
+.settings-page {
+  .settings {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .settings-section {
+    width: 100%;
+  }
+
+  .settings-table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-secondary);
+  }
+
+  .settings-table-header,
+  .settings-table-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-secondary-light);
+  }
+
+  .settings-table-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-tertiary-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .settings-table-row {
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .row-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-tertiary-light);
+      width: 40px;
+      text-align: left;
+      white-space: nowrap;
+
+      &.wide {
+        width: auto;
+        flex: 1;
+        padding-right: 12px;
+      }
+    }
+
+    input {
+      width: 72px;
+      padding: 6px 8px;
+      border: 1px solid var(--color-secondary-light);
+      border-radius: 6px;
+      background-color: var(--color-secondary-dark);
+      color: var(--color-tertiary);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      flex-shrink: 0;
+
+      &:focus {
+        border-color: var(--color-tertiary-dark);
+      }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      -moz-appearance: textfield;
+    }
+  }
+
+  .settings-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 8px;
+  }
+
+  .reset-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--color-secondary-light);
+    border-radius: 6px;
+    background-color: var(--color-secondary);
+    color: var(--color-tertiary-light);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-2);
+
+    &:hover {
+      background-color: var(--color-secondary-light);
+      color: var(--color-tertiary);
+    }
+  }
+
+  .saved-hint {
+    font-size: 12px;
+    color: var(--color-tertiary-dark);
+  }
+}

@@ -10,6 +10,7 @@ import './styles/placeholder.scss';
 import './styles/button.scss';
 import './styles/footer.scss';
 import './styles/coursesList.scss';
+import './styles/settings.scss';
 // import 'material-icons/iconfont/round.scss';
 
 const root = document.createElement('div');

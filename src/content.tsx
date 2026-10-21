@@ -1,4 +1,9 @@
-import { getGPAInfo } from './utils/calculator_methods';
+import {
+  getGPAInfo,
+  setEstimateGradesCache,
+  setGradeLettersCache,
+  setGradePointsCache,
+} from './utils/calculator_methods';
 import { getInsights } from './utils/insights_methods';
 
 const getGrades = (): string[] => {
@@ -270,26 +275,51 @@ const pushToSemesters = () => {
   });
 };
 
+const createCheckIcon = () => {
+  const icon = document.createElement('span');
+  icon.className = 'mti-gpa-check';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="#373740"/>
+      <path d="M7 12.5l3 3 7-7" stroke="#eaeaed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+  icon.style.cssText = `
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    flex-shrink: 0;
+  `;
+  return icon;
+};
+
+const getSemesterItemName = (item: HTMLElement) => {
+  const clone = item.cloneNode(true) as HTMLElement;
+  clone.querySelectorAll('.mti-gpa-check').forEach((el) => el.remove());
+  return clone.textContent?.trim() || '';
+};
+
 const checkOnSemesterList = () => {
   const semesters: any = document.getElementsByClassName('list-group-item  ');
   chrome.storage.sync.get(['semesters', 'currentSemester'], function (result) {
     const semestersList = result.semesters || [];
-    for (const semester of semestersList) {
-      for (let i = 0; i < semesters.length; i++) {
-        // console.log({
-        //   semester: semester.name,
-        //   semesters: semesters[i].textContent.trim(),
-        // });
-        if (semesters[i].textContent.trim() === semester.name) {
-          semesters[i].style.cssText = `
-            background-color: #eaf4fa;
-          `;
+    const savedNames = new Set(semestersList.map((s: any) => s.name));
+
+    for (let i = 0; i < semesters.length; i++) {
+      const item = semesters[i] as HTMLElement;
+      const name = getSemesterItemName(item);
+      const existingCheck = item.querySelector('.mti-gpa-check');
+
+      if (savedNames.has(name) || name === result.currentSemester) {
+        if (!existingCheck) {
+          item.style.display = 'flex';
+          item.style.alignItems = 'center';
+          item.style.justifyContent = 'space-between';
+          item.appendChild(createCheckIcon());
         }
-        if (semesters[i].textContent.trim() === result.currentSemester) {
-          semesters[i].style.cssText = `
-            background-color: #eaeaed;
-          `;
-        }
+      } else if (existingCheck) {
+        existingCheck.remove();
       }
     }
   });
@@ -368,26 +398,34 @@ const checkOnSemesterList = () => {
 // };
 
 
-if (document.getElementsByTagName('tbody').length !== 0) {
-  pushToSemesters();
-  addGPAContainer();
-  changeTableStyle();
-}
+const runContentScript = () => {
+  if (document.getElementsByTagName('tbody').length !== 0) {
+    pushToSemesters();
+    addGPAContainer();
+    changeTableStyle();
+  }
 
-if (document.getElementsByClassName('panel panel-primary').length !== 0) {
-  changeMenuStyle();
-  setTimeout(() => {
-    checkOnSemesterList();
-    // collectGrades();
-  }, 1000);
-}
+  if (document.getElementsByClassName('panel panel-primary').length !== 0) {
+    changeMenuStyle();
+    setTimeout(() => {
+      checkOnSemesterList();
+    }, 1000);
+  }
 
-if (document.getElementsByClassName('staff-item').length !== 0) {
-  changeAvatar();
-}
+  if (document.getElementsByClassName('staff-item').length !== 0) {
+    changeAvatar();
+  }
 
-if (document.getElementsByClassName('badge label-primary pull-right').length !== 0) {
-  changeArrowStyle();
-}
+  if (document.getElementsByClassName('badge label-primary pull-right').length !== 0) {
+    changeArrowStyle();
+  }
 
-changeHeaderStyle();
+  changeHeaderStyle();
+};
+
+chrome.storage.local.get(['gradePoints', 'gradeLetters', 'estimateGrades'], (result) => {
+  if (result.gradePoints) setGradePointsCache(result.gradePoints);
+  if (result.gradeLetters) setGradeLettersCache(result.gradeLetters);
+  if (result.estimateGrades) setEstimateGradesCache(result.estimateGrades);
+  runContentScript();
+});

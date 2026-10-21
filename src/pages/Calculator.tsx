@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getGeneralEstimate, getTotalGPA } from '../utils/calculator_methods';
+import { getGeneralEstimate, getTotalGPA, loadAllSettingsFromLocalStorage } from '../utils/calculator_methods';
 import Semester from '../components/Semester';
 import { Semester as SemesterType } from '../types/types';
 import Placeholder from '../components/Placeholder';
@@ -11,6 +11,7 @@ const Calculator = () => {
   const [currentSemester, setCurrentSemester] = useState('');
 
   useEffect(() => {
+    loadAllSettingsFromLocalStorage();
     chrome.storage.sync.get(['semesters'], function (result) {
       if (result.semesters === undefined) {
         setSemesters([]);

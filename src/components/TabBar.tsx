@@ -1,6 +1,6 @@
 import React from 'react';
 
-type tabs = 'Calculator' | 'Insights';
+export type tabs = 'Calculator' | 'Insights' | 'Settings';
 
 const CalculatorIcon = () => (
   <svg
@@ -43,11 +43,12 @@ const InsightsIcon = () => (
   </svg>
 );
 
-// const SemestersIcon = () => (
-//   <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-//     <path d="M400-200q-17 0-28.5-11.5T360-240q0-17 11.5-28.5T400-280h400q17 0 28.5 11.5T840-240q0 17-11.5 28.5T800-200H400Zm0-240q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h400q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H400Zm0-240q-17 0-28.5-11.5T360-720q0-17 11.5-28.5T400-760h400q17 0 28.5 11.5T840-720q0 17-11.5 28.5T800-680H400ZM200-160q-33 0-56.5-23.5T120-240q0-33 23.5-56.5T200-320q33 0 56.5 23.5T280-240q0 33-23.5 56.5T200-160Zm0-240q-33 0-56.5-23.5T120-480q0-33 23.5-56.5T200-560q33 0 56.5 23.5T280-480q0 33-23.5 56.5T200-400Zm0-240q-33 0-56.5-23.5T120-720q0-33 23.5-56.5T200-800q33 0 56.5 23.5T280-720q0 33-23.5 56.5T200-640Z" />
-//   </svg>
-// );
+const SettingsIcon = () => (
+  <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none" />
+    <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+  </svg>
+);
 
 const TabBar = ({ CurrentTab, setCurrentTab }: { CurrentTab: tabs; setCurrentTab: (tab: tabs) => void }) => {
   const Tabs = [
@@ -55,13 +56,13 @@ const TabBar = ({ CurrentTab, setCurrentTab }: { CurrentTab: tabs; setCurrentTab
       name: 'Calculator',
       icon: <CalculatorIcon />,
     },
-    // {
-    //   name: 'Semesters',
-    //   icon: <SemestersIcon />,
-    // },
     {
       name: 'Insights',
       icon: <InsightsIcon />,
+    },
+    {
+      name: 'Settings',
+      icon: <SettingsIcon />,
     },
   ];
 
