@@ -1,6 +1,6 @@
 {
   "name": "mti-gpa-calculator",
-  "version": "1.0.0",
+  "version": "5.0.0",
   "description": "A browser extension for the MTI University website that calculates students' GPA and estimation instantly and also improves the website's style.",
   "main": "service-worker.js",
   "scripts": {

@@ -50,7 +50,7 @@ const Footer = () => {
       </div>
       <span className="copyright">© {new Date().getFullYear()} anaszarqawi.</span>
       <div className="version">
-        v4.1
+        v5.0
       </div>
     </div>
   );
